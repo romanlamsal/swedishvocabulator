@@ -1,9 +1,6 @@
 package de.lamsal.vocabulator.repository
 
-import de.lamsal.vocabulator.entity.FreeText
-import de.lamsal.vocabulator.entity.FreeTextCard
-import de.lamsal.vocabulator.entity.IndexCard
-import de.lamsal.vocabulator.entity.Lecture
+import de.lamsal.vocabulator.entity.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
@@ -17,6 +14,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 internal class LectureRepositoryTestIT {
 
     @Autowired
+    lateinit var indexCardRepository: IndexCardRepository
+
+    @Autowired
     lateinit var lectureRepository: LectureRepository
 
     @Test
@@ -26,9 +26,11 @@ internal class LectureRepositoryTestIT {
 
     @Test
     fun `can save lecture with cards, on which the cards will be lost`() {
-        val lecture = Lecture(name = "foo", description = "bar", indexCards = listOf(
-                FreeTextCard("hallo i bims", FreeText("hey, är jag"))
-        ))
+        val indexCards = listOf(
+                IndexCard<FreeText>("hallo i bims", WORDTYPE.FREE_TEXT, FreeText("hey, är jag"))
+        )
+
+        val lecture = Lecture(name = "foo", description = "bar", indexCards = indexCards.map { indexCardRepository.save(it) })
         val savedLecture = lectureRepository.save(lecture)
 
         assertNotEquals(lecture.indexCards, savedLecture.indexCards)

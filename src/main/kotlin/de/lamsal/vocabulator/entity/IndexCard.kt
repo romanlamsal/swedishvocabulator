@@ -16,8 +16,9 @@ import javax.persistence.*
     JsonSubTypes.Type(value = NounCard::class, name = "NOUN"),
     JsonSubTypes.Type(value = FreeTextCard::class, name = "FREE_TEXT")
 ])
-@MappedSuperclass
-abstract class IndexCard<T: GrammaticalWord>(
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+open class IndexCard<T: GrammaticalWord>(
         val german: String = "",
         var wordtype: WORDTYPE,
         @Embedded

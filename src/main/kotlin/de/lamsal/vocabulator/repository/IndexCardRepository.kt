@@ -5,6 +5,9 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
+interface IndexCardRepository : CrudRepository<IndexCard<*>, Long>
+
+@Repository
 interface VerbCardRepository : CrudRepository<VerbCard, Long>
 
 @Repository
