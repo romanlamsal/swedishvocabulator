@@ -1,13 +1,11 @@
 package de.lamsal.vocabulator.entity
 
-import javax.persistence.Entity
-import javax.persistence.Id
+import javax.persistence.Embeddable
 
 interface GrammaticalWord
 
-@Entity
+@Embeddable
 data class Verb(
-        @Id
         val infinitive: String = "",
         val preterite: String = "",
         val imperative: String = "",
@@ -15,9 +13,8 @@ data class Verb(
         val supinum: String = ""
 ) : GrammaticalWord
 
-@Entity
+@Embeddable
 data class Adjective(
-        @Id
         val singularDefinite: String = "",
         val singularUtrumIndefinite: String = "",
         val singularNeutrumIndefinite: String = "",
@@ -26,9 +23,8 @@ data class Adjective(
         val superlative: String = ""
 ) : GrammaticalWord
 
-@Entity
+@Embeddable
 data class Noun(
-        @Id
         val singularDefinite: String = "",
         val singularIndefinite: String = "",
         val _noun_type: String = "",
@@ -36,5 +32,5 @@ data class Noun(
         val pluralIndefinite: String = ""
 ) : GrammaticalWord
 
-@Entity
-data class FreeText(@Id val value: String = "") : GrammaticalWord
+@Embeddable
+data class FreeText(val value: String = "") : GrammaticalWord

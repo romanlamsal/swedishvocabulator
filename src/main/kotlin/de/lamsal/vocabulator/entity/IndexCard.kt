@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
         visible = true,
         property = "wordtype")
 @JsonSubTypes(value = [
@@ -16,11 +16,12 @@ import javax.persistence.*
     JsonSubTypes.Type(value = NounCard::class, name = "NOUN"),
     JsonSubTypes.Type(value = FreeTextCard::class, name = "FREE_TEXT")
 ])
-@Entity
-@Inheritance
-abstract class IndexCard(
+@MappedSuperclass
+abstract class IndexCard<T: GrammaticalWord>(
         val german: String = "",
-        var wordtype: WORDTYPE = WORDTYPE.FREE_TEXT,
+        var wordtype: WORDTYPE,
+        @Embedded
+        val swedish: T,
         @Column(name = "index_card_id")
         @Id
         @GeneratedValue
@@ -28,25 +29,35 @@ abstract class IndexCard(
         val id: Long = -1
 ) {
     override fun equals(other: Any?): Boolean {
-        return super.equals(other)
+        return if (other is IndexCard<*>)
+            hashCode() == other.hashCode() && swedish.hashCode() == other.swedish.hashCode()
+        else
+            false
+    }
+
+    override fun hashCode(): Int {
+        var result = german.hashCode()
+        result = 31 * result + wordtype.hashCode()
+        result = 31 * result + id.hashCode()
+        return result
     }
 }
 
 @Entity
 @Table(name = "verb_card")
-class VerbCard(german: String, val swedish: Verb) : IndexCard(german, WORDTYPE.VERB)
+class VerbCard(german: String, swedish: Verb) : IndexCard<Verb>(german, WORDTYPE.VERB, swedish)
 
 @Entity
 @Table(name = "noun_card")
-class NounCard(german: String, val swedish: Noun) : IndexCard(german, WORDTYPE.NOUN)
+class NounCard(german: String, swedish: Noun) : IndexCard<Noun>(german, WORDTYPE.NOUN, swedish)
 
 @Entity
 @Table(name = "adjective_card")
-class AdjectiveCard(german: String, val swedish: Adjective) : IndexCard(german, WORDTYPE.ADJ)
+class AdjectiveCard(german: String, swedish: Adjective) : IndexCard<Adjective>(german, WORDTYPE.ADJ, swedish)
 
 @Entity
 @Table(name = "free_text_card")
-class FreeTextCard(german: String, val swedish: FreeText) : IndexCard(german, WORDTYPE.FREE_TEXT)
+class FreeTextCard(german: String, swedish: FreeText) : IndexCard<FreeText>(german, WORDTYPE.FREE_TEXT, swedish)
 
 
 enum class WORDTYPE {

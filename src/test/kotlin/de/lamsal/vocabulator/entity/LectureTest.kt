@@ -2,6 +2,10 @@ package de.lamsal.vocabulator.entity
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import de.lamsal.vocabulator.ADJECTIVE_JSON
+import de.lamsal.vocabulator.FREE_TEXT_JSON
+import de.lamsal.vocabulator.NOUN_JSON
+import de.lamsal.vocabulator.VERB_JSON
 import de.lamsal.vocabulator.util.JsonUtil
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -13,47 +17,10 @@ internal class LectureTest {
     "name": "Unit Testing",
     "description": "Example lecture for unit tests in the backend.",
     "index_cards": [
-        {
-            "german": "Erst mal nur ein Satz",
-            "wordtype": "FREE_TEXT",
-            "swedish": {
-                "value": "Enda en mening."
-            }
-        },
-        {
-            "german": "schließen",
-            "wordtype": "VERB",
-            "swedish": {
-                "present_tense": "stänger",
-                "preterite": "stängde",
-                "imperative": "stäng",
-                "infinitive": "stänga",
-                "supinum": "stängt"
-            }
-        },
-        {
-            "german": "Raum",
-            "wordtype": "NOUN",
-            "swedish": {
-                "noun_type": "ett",
-                "singular_indefinite": "rum",
-                "singular_definite": "rummet",
-                "plural_indefinite": "rum",
-                "plural_definite": "rummen"
-            }
-        },
-        {
-            "german": "fett",
-            "wordtype": "ADJ",
-            "swedish": {
-                "singular_utrum_indefinite": "tjusig",
-                "singular_neutrum_indefinite": "tjusigt",
-                "plural": "tjusiga",
-                "singular_definite": "tjusiga",
-                "comparative": "tjusigare",
-                "superlative": "tjusigast"
-            }
-        },
+        $FREE_TEXT_JSON,
+        $VERB_JSON,
+        $NOUN_JSON,
+        $ADJECTIVE_JSON,
         {
             "german": "",
             "wordtype": "FREE_TEXT",
@@ -88,9 +55,8 @@ internal class LectureTest {
 
     @Test
     fun `can parse whole lecture from json`() {
-        val deserialized: Lecture = JsonUtil().readValue(json)
         assertEquals(Lecture("Unit Testing", "Example lecture for unit tests in the backend.", listOf(
                 freeTextCard, verbCard, nounCard, adjectiveCard, FreeTextCard(german = "", swedish = FreeText(""))
-        ).toMutableList()), deserialized)
+        ).toMutableList()), JsonUtil().readValue(json, Lecture::class.java))
     }
 }
