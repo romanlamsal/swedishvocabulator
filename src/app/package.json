@@ -4,17 +4,19 @@
   "private": true,
   "dependencies": {
     "lodash": "^4.17.11",
+    "node-html-parser": "^1.1.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
     "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
     "redux": "^4.0.1",
     "request": "^2.88.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv ./build/* ../main/resources/static/",
+    "build": "react-scripts build && rm -rf ../main/resources/static && mv ./build ../main/resources/static",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -2,7 +2,6 @@ package de.lamsal.vocabulator
 
 import de.lamsal.vocabulator.entity.*
 
-
 const val VERB_JSON = """{
   "german" : "schließen",
   "wordtype" : "VERB",
@@ -62,4 +61,8 @@ val ADJECTIVE_CARD = AdjectiveCard("fett", Adjective(
 
 val FREE_TEXT_CARD = FreeTextCard("Erst mal nur ein Satz", FreeText(
         "Enda en mening."
+))
+
+val LECTURE = Lecture("Unit Testing", "Example lecture for unit tests in the backend.", listOf(
+        FREE_TEXT_CARD, VERB_CARD, NOUN_CARD, ADJECTIVE_CARD, FreeTextCard(german = "", swedish = FreeText(""))
 ))

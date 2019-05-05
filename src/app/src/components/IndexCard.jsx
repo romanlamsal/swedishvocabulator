@@ -1,23 +1,23 @@
 import React from "react";
 import _ from "lodash";
 import request from "request";
-import {WORDTYPES} from "./Lecture";
-import {AdjectiveCard, FreeTextCard, NounCard, VerbCard} from "./SwedishCard";
+import {WORDTYPES} from "../util/IndexCardUtil";
+import {getDisplayComponentByWordtype, getEditComponentByWordtype} from "../util/IndexCardUtil";
+import {getResult} from "../service/SvenskaSeService";
 
-function getWordTypeComponent(wordtype) {
-    switch (wordtype) {
-        case WORDTYPES.FREE_TEXT:
-            return FreeTextCard
-        case WORDTYPES.VERB:
-            return VerbCard
-        case WORDTYPES.ADJECTIVE:
-            return AdjectiveCard
-        case WORDTYPES.NOUN:
-            return NounCard
-    }
+export const IndexCardQuiz = ({quiztype, german, wordtype, swedish, onClick, onClickDelete}) => {
+    const SwedishComponent = getDisplayComponentByWordtype(wordtype)
+    return <div
+        className={"index-card " + wordtype.toLowerCase() + " quiz " + quiztype}
+        tabIndex={1} onClick={onClick}
+    >
+        <div><p>{german}</p></div>
+        <hr/>
+        <SwedishComponent data={swedish} key={"swedish"}/>
+    </div>
 }
 
-export class IndexCard extends React.Component {
+export class IndexCardEdit extends React.Component {
     constructor(props) {
         super(props)
         this.defaultState = _.cloneDeep(props)
@@ -33,7 +33,7 @@ export class IndexCard extends React.Component {
     }
 
     autofill() {
-        let identifyingWord = this.props.swedish[getWordTypeComponent(this.props.wordtype).IDENTIFIER];
+        let identifyingWord = this.props.swedish[getEditComponentByWordtype(this.props.wordtype).IDENTIFIER];
 
         if (!identifyingWord)
             return
@@ -42,14 +42,10 @@ export class IndexCard extends React.Component {
             .replace(/^en /, "")
             .replace(/^ett /, "")
 
-        let urlWithParams = "http://localhost:4000/" + identifyingWord + "?wordtype=" + this.props.wordtype;
-        console.log("Fetch from", urlWithParams)
-        return request(urlWithParams, (error, response, body) => {
-            console.log("Response code:", response.statusCode)
-            console.log("Response body:", body)
-            if (response.statusCode === 200)
-                this.setState({swedish: JSON.parse(body).data})
-        });
+        return getResult(identifyingWord, this.props.wordtype,
+            ([returnedWordType, data]) => this.setState({swedish: data}),
+            error => console.error("Could not autofill:", error)
+        )
     }
 
     handleWordtypeChange(ev, wordtype) {
@@ -109,7 +105,7 @@ export class IndexCard extends React.Component {
         if (!Boolean(wordtype))
             return <div/>
 
-        const SwedishComponent = getWordTypeComponent(wordtype);
+        const SwedishComponent = getEditComponentByWordtype(wordtype);
 
         return <div tabIndex={1} onKeyDown={this.handleShortcuts.bind(this)}>
             <select value={wordtype} onChange={this.handleWordtypeChange.bind(this)}>
@@ -120,13 +116,12 @@ export class IndexCard extends React.Component {
             </select>
             <div/>
             <div className={"index-card " + wordtype.toLowerCase()}>
-                <div className="index-card german">
+                <div className="index-card edit german">
                     <label>Wort/Phrase:</label><input value={german} ref={ref => this.focusInput = ref}
                                                       onChange={ev => this.setState({german: ev.target.value})}/>
                 </div>
                 <hr/>
-                <SwedishComponent className={"index-card swedish"}
-                                  onChange={field => ev => this.handleChangeInSwedish(field, ev)}
+                <SwedishComponent onChange={field => ev => this.handleChangeInSwedish(field, ev)}
                                   data={swedish}
                 />
             </div>
@@ -142,7 +137,7 @@ export const IndexCardSmall = ({german, swedish, wordtype, isFocused, onClick, o
 >
     <div><p>{german}</p></div>
     <hr/>
-    <div><p>{swedish[getWordTypeComponent(wordtype).IDENTIFIER]}</p></div>
+    <div><p>{swedish[getEditComponentByWordtype(wordtype).IDENTIFIER]}</p></div>
     <span className={"delete-overlay"} onClick={onClickDelete}>
         <span className={"glyphicon glyphicon-remove"}/>
     </span>

@@ -7,6 +7,51 @@ hr {
   margin: 0 8px 0 8px;
 }
 
+button {
+  border: 1px solid darkblue;
+  border-radius: 8px;
+}
+
+/************* LECTURE OVERVIEW *************/
+.lecture-overview {
+  padding-left: 25%;
+  padding-right: 25%;
+
+  text-align: center;
+}
+
+.lecture-overview > div:first-child{
+  font-size: 24pt;
+}
+
+/************* LECTURE META *************/
+.lecture-meta {
+  margin-bottom: 24px;
+  min-width: 512px;
+}
+
+.lecture-meta > div:first-child {
+  border: 1px solid darkblue;
+  border-radius: 8px;
+  padding: 8px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.lecture-meta > div:first-child > div {
+  padding: 4px;
+}
+
+.lecture-meta > div:first-child > div:first-child {
+  font-weight: bold;
+  border-bottom: 1px solid darkblue;
+}
+
+.lecture-meta.buttongroup > button {
+  margin: 0 4px 0 4px;
+}
+
+/************* LECTURE *************/
 .lecture.control-bar {
   position: sticky;
   top: 0;
@@ -46,8 +91,13 @@ hr {
 .index-card.german {
   border: none;
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 4px;
+}
+
+.index-card.edit.swedish,
+.index-card.edit.german {
+  grid-template-columns: 2fr 10fr;
 }
 
 .index-card.verb {
@@ -102,9 +152,99 @@ hr {
   outline: 2px solid deepskyblue;
 }
 
+
+/************* YES NO QUIZ *************/
+.quiz.yesno.root {
+  height: calc(94vh - 24px); /*fill height but do not show scrollbar */
+  width: 100%;
+  outline: none;
+  padding: 64px 0 24px 0;
+}
+
+.quiz.yesno.root > div {
+  width: 25%;
+  text-align: center;
+  margin: auto;
+}
+
+.quiz.yesno.result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 0;
+}
+.quiz.yesno.result hr {
+  margin: 0;
+}
+.quiz.yesno.result button {
+  margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quiz.yesno.current-card p {
+  font-weight: bold;
+}
+
+.quiz.yesno.current-card.unturned hr,
+.quiz.yesno.current-card.unturned .index-card.swedish {
+  display: none;
+}
+
+.quiz.yesno > .buttongroup > button:first-child{
+  float: left;
+}
+
+.quiz.yesno > .buttongroup > button:last-child{
+  float: right;
+}
+
+.quiz.yesno.unturned > .buttongroup {
+  display: none;
+}
+
+
+/************* STICKY NAVIGATION *************/
+.sticky-navigation {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100% !important;
+  padding: 12px 5% 12px 5%;
+}
+.sticky-navigation > button {
+  margin: 0 0 0 8px;
+  float: right;
+}
+
+
+/************* RESPONSIVE *************/
 @media(max-width: 768px) {
+  button {
+    padding: 12px;
+  }
+
+  .lecture-meta {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .lecture-overview,
   .lecture.current-index-card {
     padding-left: 5%;
     padding-right: 5%;
+  }
+
+  .quiz.yesno.root {
+    padding: 0;
+    display: table;
+  }
+  .quiz.yesno.root > div {
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .quiz.yesno.current-card .index-card {
+    font-size: 24px;
   }
 }
