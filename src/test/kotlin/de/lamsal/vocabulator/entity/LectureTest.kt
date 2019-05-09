@@ -27,6 +27,16 @@ internal class LectureTest {
         }
     ]
 }"""
+        const val incompleteLectureJson = """{"name": "", "description": "", "index_cards": [{
+  "german" : "fett",
+  "wordtype" : "ADJ",
+  "swedish" : {
+    "singular_definite" : "tjusiga",
+    "singular_utrum_indefinite" : "tjusig",
+    "singular_neutrum_indefinite" : "tjusigt",
+    "comparative": null
+  }
+}]}"""
     }
 
     @Test
@@ -37,5 +47,12 @@ internal class LectureTest {
     @Test
     fun `can parse whole lecture from json`() {
         assertEquals(LECTURE, JsonUtil().readValue(json, Lecture::class.java))
+    }
+
+    @Test
+    fun `can parse lecture with incomplete indexCards`() {
+        assertEquals(Lecture(indexCards = listOf(AdjectiveCard("fett", Adjective(
+                singularDefinite = "tjusiga", singularUtrumIndefinite = "tjusig", singularNeutrumIndefinite = "tjusigt"
+        )))), JsonUtil().readValue(incompleteLectureJson, Lecture::class.java))
     }
 }
