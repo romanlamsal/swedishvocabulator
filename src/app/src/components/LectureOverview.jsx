@@ -22,8 +22,14 @@ class LectureOverview extends React.Component {
     snackMeta = {name: "Snack: 20", description: "20 zufällige Vokabeln aus allen Lektionen.", id: "snack"}
 
     componentDidMount() {
-        get((lectureMetas) => this.setState({lectures: [this.snackMeta, ...lectureMetas]}),
+        get(this.loadLectures.bind(this),
             (errorBody) => console.error("ERROR:", errorBody))
+    }
+
+    loadLectures(lectureMetas) {
+        if (lectureMetas.length > 0) {
+            this.setState({lectures: [this.snackMeta, ...lectureMetas]})
+        }
     }
 
     onClickEdit = (lectureMeta) => () => this.props.history.push("/lecture/" + lectureMeta.id)

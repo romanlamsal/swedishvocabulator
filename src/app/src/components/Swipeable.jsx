@@ -1,9 +1,6 @@
 import React from "react";
 
 class Swipeable extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     onTouchStart(ev) {
         this.touchDownX = ev.touches[0].screenX
@@ -17,7 +14,7 @@ class Swipeable extends React.Component {
                 this.props.onSwipeRight()
             else
                 this.props.onSwipeLeft()
-        }
+    }
         this.props.onTouchEnd(ev)
     }
 

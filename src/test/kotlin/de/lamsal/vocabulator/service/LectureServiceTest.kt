@@ -6,8 +6,14 @@ import de.lamsal.vocabulator.entity.LectureEntityMeta
 import de.lamsal.vocabulator.repository.LectureRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+
+
 
 internal class LectureServiceTest {
     private companion object {
@@ -23,6 +29,15 @@ internal class LectureServiceTest {
     }
 
     lateinit var lectureService: LectureService
+
+    @Test
+    fun foo() {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val encodedhash = digest.digest(
+                "mundSchutz135".toByteArray(StandardCharsets.UTF_8))
+        println(String(encodedhash))
+        println(String(encodedhash, StandardCharsets.UTF_8))
+    }
 
     @BeforeEach
     fun setUp() {

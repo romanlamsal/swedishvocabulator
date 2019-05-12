@@ -10,7 +10,7 @@ internal class LectureEntityMetaTest {
     private companion object {
         const val lectureId = "lectureId"
         val lectureEntityMeta = LectureEntityMeta(lectureId, LECTURE)
-        const val json = """{"name":"Unit Testing","description":"Example lecture for unit tests in the backend.","id":"lectureId"}"""
+        const val json = """{"id":"lectureId","name":"Unit Testing","description":"Example lecture for unit tests in the backend."}"""
     }
 
     @Test

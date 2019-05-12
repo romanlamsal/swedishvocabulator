@@ -7,7 +7,7 @@ data class Lecture (
         val indexCards: List<IndexCard<*>> = emptyList()
 )
 
-data class LectureEntityMeta(val name: String, val description: String, val id: String) {
+data class LectureEntityMeta(val id: String, val name: String, val description: String) {
     constructor(id: String, lecture: Lecture) :
-            this(lecture.name, lecture.description, id)
+            this(name = lecture.name, description = lecture.description, id = id)
 }

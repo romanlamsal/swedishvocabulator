@@ -1,6 +1,6 @@
 const { parse } = require('node-html-parser')
 const {
-    getResult, processRequest, determineWordType,
+    processSvenskaSeRequest, determineWordType,
     buildNoun, buildAdjective, buildVerb } = require("../../service/SvenskaSeService.js")
 
 describe("Parsing verbs", () => {
@@ -52,8 +52,8 @@ describe("Parsing adjectives", () => {
             singular_neutrum_indefinite: "stängt",
             singular_definite: "stängda",
             plural: "stängda",
-            comparative: null,
-            superlative: null
+            comparative: "",
+            superlative: ""
         })
     })
 
@@ -63,8 +63,8 @@ describe("Parsing adjectives", () => {
             singular_neutrum_indefinite: "enda",
             singular_definite: "enda",
             plural: "enda",
-            comparative: null,
-            superlative: null
+            comparative: "",
+            superlative: ""
         })
     })
 
@@ -74,8 +74,8 @@ describe("Parsing adjectives", () => {
             singular_neutrum_indefinite: "fel",
             singular_definite: "fel",
             plural: "fel",
-            comparative: null,
-            superlative: null
+            comparative: "",
+            superlative: ""
         })
     })
 })
@@ -107,9 +107,9 @@ describe("Parsing nouns", () => {
     })
 })
 
-describe("processRequest", () => {
+describe("processSvenskaSeRequest", () => {
     it("noun, do not expect wordtype", () => {
-        expect(processRequest(null, null, nounResponseEn, null)).toEqual([
+        expect(processSvenskaSeRequest(null, null, nounResponseEn, null)).toEqual([
             "NOUN", {
                 noun_type: "en",
                 singular_indefinite: "flicka",
@@ -120,7 +120,7 @@ describe("processRequest", () => {
         ])
     })
     it("verb, do not expect wordtype", () => {
-        expect(processRequest(null, null, verbResponse, null)).toEqual([
+        expect(processSvenskaSeRequest(null, null, verbResponse, null)).toEqual([
             "VERB", {
                 infinitive: "stänga",
                 present_tense: "stänger",
@@ -131,7 +131,7 @@ describe("processRequest", () => {
         ])
     })
     it("adjective, do not expect wordtype", () => {
-        expect(processRequest(null, null, adjectiveResponseLiten, null)).toEqual([
+        expect(processSvenskaSeRequest(null, null, adjectiveResponseLiten, null)).toEqual([
             "ADJ", {
                 singular_utrum_indefinite: "liten",
                 singular_neutrum_indefinite: "litet",
@@ -144,7 +144,7 @@ describe("processRequest", () => {
     })
     it ("another adjective, do not expect wordtype", () => {
 
-        expect(processRequest(null, null, adjectiveResponse, null)).toEqual([
+        expect(processSvenskaSeRequest(null, null, adjectiveResponse, null)).toEqual([
             "ADJ", {
                 singular_utrum_indefinite: "svart",
                 singular_neutrum_indefinite: "svart",
@@ -157,7 +157,7 @@ describe("processRequest", () => {
     })
 
     it("verb, with expectation", () => {
-        expect(processRequest(null, null, nounResponseEn, "verb")).toEqual([
+        expect(processSvenskaSeRequest(null, null, nounResponseEn, "verb")).toEqual([
             "VERB", {
                 infinitive: "flicka",
                 present_tense: "flickar",
@@ -169,14 +169,14 @@ describe("processRequest", () => {
     })
 
     it("adjective from verb, obviously with expectation", () => {
-        expect(processRequest(null, null, verbResponse, "adj")).toEqual([
+        expect(processSvenskaSeRequest(null, null, verbResponse, "adj")).toEqual([
             "ADJ", {
                 singular_utrum_indefinite: "stängd",
                 singular_neutrum_indefinite: "stängt",
                 singular_definite: "stängda",
                 plural: "stängda",
-                comparative: null,
-                superlative: null
+                comparative: "",
+                superlative: ""
             }
         ])
     })

@@ -101,8 +101,8 @@ export function buildAdjective(root) {
 
     // no comparative and superlative
     if (comparativeIndex === 0 && superlativeIndex === -1) {
-        result.comparative = null
-        result.superlative = null
+        result.comparative = ""
+        result.superlative = ""
     }
 
     // e.g. "fel" has no comparative and no positives, only one form: "fel"
@@ -185,9 +185,9 @@ export function processSvenskaSeRequest(error, response, body, expectedWordType)
         case "VERB":
             return ["VERB", buildVerb(rootOfWordType)]
         case "UNKNOWN":
-            throw "Wordtype 'UNKNOWN'."
+            throw Object("Wordtype 'UNKNOWN'.")
         default:
-            throw "Unknown wordtype '" + wordType + "'"
+            throw Object("Unknown wordtype '" + wordType + "'")
     }
 }
 

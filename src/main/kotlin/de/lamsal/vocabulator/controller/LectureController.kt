@@ -1,13 +1,9 @@
 package de.lamsal.vocabulator.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import de.lamsal.vocabulator.entity.Lecture
-import de.lamsal.vocabulator.entity.LectureEntityMeta
 import de.lamsal.vocabulator.service.LectureService
 import de.lamsal.vocabulator.util.JsonUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 @RequestMapping("/api/lecture")

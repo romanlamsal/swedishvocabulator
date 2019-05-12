@@ -1,9 +1,11 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {IndexCardEdit, IndexCardSmall} from "./IndexCard";
+import {IndexCardEdit} from "./indexcards/IndexCard";
 import {save, getById} from "../repository/lectureRepository";
 import {withRouter} from "react-router";
 import {cardIsEmpty} from "../util/IndexCardUtil";
+import {IndexCardSmall} from "./indexcards/IndexCardSmall";
+import StickyNavigation from "./StickyNavigation";
 
 class LectureEdit extends React.Component {
     // currentId is not in state because it should not issue an rerender
@@ -62,15 +64,13 @@ class LectureEdit extends React.Component {
         const {currentIndexCard} = this.state
 
         return <div>
-            <div className={"sticky-navigation"}>
+            <StickyNavigation>
+                <button onClick={this.saveLecture.bind(this)}>Lektion speichern</button>
                 <button onClick={this.goBackToOverview.bind(this)}>Zurück zur Übersicht</button>
-            </div>
+            </StickyNavigation>
             <div style={{display: "grid", gridTemplateColumns: "1fr 10fr", marginBottom: "24px", marginTop: "24px"}}>
                 <label>Name der Lektion </label><input ref={ref => this.nameInput = ref}/>
                 <label>Beschreibung (optional)</label><textarea ref={ref => this.descriptionInput = ref}/>
-            </div>
-            <div className={"lecture control-bar"}>
-                <button onClick={this.saveLecture.bind(this)}>Lektion speichern</button>
             </div>
             <div className={"lecture current-index-card"}>
                 <IndexCardEdit {...indexCards[currentIndexCard]} key={currentIndexCard + indexCards.length}

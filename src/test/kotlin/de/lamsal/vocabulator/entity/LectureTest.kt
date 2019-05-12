@@ -33,8 +33,7 @@ internal class LectureTest {
   "swedish" : {
     "singular_definite" : "tjusiga",
     "singular_utrum_indefinite" : "tjusig",
-    "singular_neutrum_indefinite" : "tjusigt",
-    "comparative": null
+    "singular_neutrum_indefinite" : "tjusigt"
   }
 }]}"""
     }

@@ -29,6 +29,8 @@ export function getEditComponentByWordtype(wordtype) {
             return AdjectiveCardEdit
         case WORDTYPES.NOUN:
             return NounCardEdit
+        default:
+            return () => null
     }
 }
 
@@ -42,5 +44,7 @@ export function getDisplayComponentByWordtype(wordtype) {
             return AdjectiveCard
         case WORDTYPES.NOUN:
             return NounCard
+        default:
+            return () => null
     }
 }

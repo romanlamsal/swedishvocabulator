@@ -14,11 +14,12 @@ apply plugin: "com.github.johnrengelman.shadow"
 
 mainClassName = 'de.lamsal.vocabulator.VocabulatorApplicationKt'
 group = 'de.lamsal'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+	//mavenCentral()
+	jcenter()
 }
 
 def nitriteVersion = '3.2.0'
@@ -27,7 +28,7 @@ dependencies {
 	implementation 'org.dizitart:potassium-nitrite:'+nitriteVersion
 	implementation 'org.dizitart:nitrite:'+nitriteVersion
 
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
@@ -35,6 +36,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.0+')
+	testImplementation('khttp:khttp:0.1.0')
 	testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.0+')
 }
 

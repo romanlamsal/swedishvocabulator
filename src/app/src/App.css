@@ -1,5 +1,5 @@
 body {
-  padding: 0 24px 24px 24px;
+  padding: 24px 24px 24px 24px;
 }
 
 hr {
@@ -155,7 +155,7 @@ button {
 
 /************* YES NO QUIZ *************/
 .quiz.yesno.root {
-  height: calc(94vh - 24px); /*fill height but do not show scrollbar */
+  height: calc(94vh - 48px); /*fill height but do not show scrollbar */
   width: 100%;
   outline: none;
   padding: 64px 0 24px 0;
@@ -206,19 +206,47 @@ button {
 /************* STICKY NAVIGATION *************/
 .sticky-navigation {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100% !important;
-  padding: 12px 5% 12px 5%;
+  top: 12px;
+  right: 24px;
+  display: inline-block;
 }
-.sticky-navigation > button {
-  margin: 0 0 0 8px;
-  float: right;
+
+
+.sticky-navigation > span:after {
+  border: 1px solid black;
+  padding: 0 12px 0 12px;
+  margin-left: 12px;
+  text-align: center;
+  line-height: 24px;
+  background: white;
+}
+
+.sticky-navigation.collapsed > span:after {
+  content: "O"
+}
+.sticky-navigation.expanded > span:after {
+  content: "X"
+}
+.sticky-navigation .collapse-container {
+  display: inline-block;
+}
+
+.sticky-navigation .collapse-container > * {
+  margin-left: 8px;
+}
+
+.sticky-navigation.collapsed > .collapse-container {
+  visibility: hidden;
 }
 
 
 /************* RESPONSIVE *************/
 @media(max-width: 768px) {
+  body {
+    padding-top: 48px;
+  }
+
+  .sticky-navigation > span:after,
   button {
     padding: 12px;
   }

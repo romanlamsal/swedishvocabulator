@@ -11,7 +11,8 @@ const val VERB_JSON = """{
     "imperative" : "stäng",
     "present_tense" : "stänger",
     "supinum" : "stängt"
-  }
+  },
+  "id" : ""
 }"""
 
 const val NOUN_JSON = """{
@@ -23,7 +24,8 @@ const val NOUN_JSON = """{
     "noun_type" : "ett",
     "plural_definite" : "rummen",
     "plural_indefinite" : "rum"
-  }
+  },
+  "id" : ""
 }"""
 
 const val ADJECTIVE_JSON = """{
@@ -36,7 +38,8 @@ const val ADJECTIVE_JSON = """{
     "plural" : "tjusiga",
     "comparative" : "tjusigare",
     "superlative" : "tjusigast"
-  }
+  },
+  "id" : ""
 }"""
 
 const val FREE_TEXT_JSON = """{
@@ -44,7 +47,8 @@ const val FREE_TEXT_JSON = """{
   "wordtype" : "FREE_TEXT",
   "swedish" : {
     "value" : "Enda en mening."
-  }
+  },
+  "id" : ""
 }"""
 
 val VERB_CARD = VerbCard("schließen", Verb(
