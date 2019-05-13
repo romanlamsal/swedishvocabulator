@@ -12,7 +12,8 @@ import YesNoQuiz from "./components/quiz/YesNoQuiz";
 function App() {
 
     return (
-        <Provider className="App" store={createStore(lectureReducer)}>
+        <Provider className="App" store={createStore(lectureReducer,
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
             <BrowserRouter>
                 <Switch>
                     <Route path={"/lecture/:lectureId?"} component={Lecture}/>

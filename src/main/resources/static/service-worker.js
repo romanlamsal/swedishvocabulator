@@ -6,7 +6,7 @@
  * See https://goo.gl/nhQhGp
  *
  * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build security
+ * directly; instead, make changes to your Workbox build configuration
  * and re-run your build process.
  * See https://goo.gl/2aRDsh
  */
@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.0/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.352410b65ec74b7d0bc98842e386b395.js"
+  "/precache-manifest.17cd1a73a7ebc7ad622741ae28ae0b4a.js"
 );
 
 self.addEventListener('message', (event) => {

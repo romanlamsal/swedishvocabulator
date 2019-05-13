@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {IndexCardEdit} from "./indexcards/IndexCard";
+import {IndexCardEdit} from "./indexcards/IndexCardEdit";
 import {save, getById} from "../repository/lectureRepository";
 import {withRouter} from "react-router";
 import {cardIsEmpty} from "../util/IndexCardUtil";
@@ -13,7 +13,7 @@ class LectureEdit extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {currentIndexCard: 0}
+        this.state = {currentIndexCard: 0, successful: null}
     }
 
     getLectureId = (props=this.props) => props.match.params.lectureId || null
@@ -47,11 +47,33 @@ class LectureEdit extends React.Component {
         this.props.addIndexCard()
     }
 
+    onSaveSuccess(body) {
+        if (this.currentId === null) {
+            this.currentId = body
+            this.props.history.push("/lecture/" + body)
+        }
+
+        getById(this.currentId, ({name, description, indexCards}) => {
+            this.nameInput.value = name
+            this.descriptionInput.value = description
+            this.props.loadIndexCards(indexCards)
+        })
+
+        this.setState({successful: true},
+            () => setTimeout(() => this.setState({successful: null}), 5000))
+    }
+
+    onSaveFailure(body) {
+        console.error("Error on saving lecture:", body)
+
+        this.setState({successful: false},
+            () => setTimeout(() => this.setState({successful: null}), 5000))
+    }
+
     saveLecture() {
         save(this.currentId,
             this.nameInput.value, this.descriptionInput.value, this.props.indexCards.filter(it => !cardIsEmpty(it)),
-            body => this.currentId === null ? this.props.history.push("/lecture/" + body) : null,
-            (body) => console.error("Error on saving lecture:", body))
+            this.onSaveSuccess.bind(this), this.onSaveFailure.bind(this))
     }
 
     goBackToOverview() {
@@ -61,11 +83,22 @@ class LectureEdit extends React.Component {
 
     render() {
         const {indexCards, updateIndexCard, deleteIndexCard} = this.props;
-        const {currentIndexCard} = this.state
+        const {currentIndexCard, successful} = this.state
+
+        let saveButtonBackgroundColor
+        if (successful !== null) {
+            if (successful)
+                saveButtonBackgroundColor = "lightgreen"
+            else
+                saveButtonBackgroundColor = "#faa"
+        } else
+            saveButtonBackgroundColor = null
+
+        console.log("SaveButtonOutline:", saveButtonBackgroundColor)
 
         return <div>
             <StickyNavigation>
-                <button onClick={this.saveLecture.bind(this)}>Lektion speichern</button>
+                <button style={{background: saveButtonBackgroundColor}} onClick={this.saveLecture.bind(this)}>Lektion speichern</button>
                 <button onClick={this.goBackToOverview.bind(this)}>Zurück zur Übersicht</button>
             </StickyNavigation>
             <div style={{display: "grid", gridTemplateColumns: "1fr 10fr", marginBottom: "24px", marginTop: "24px"}}>

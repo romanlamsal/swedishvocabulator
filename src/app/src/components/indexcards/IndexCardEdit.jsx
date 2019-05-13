@@ -11,9 +11,7 @@ export class IndexCardEdit extends React.Component {
 
     setState(state, callback) {
         this.props.update({
-            german: this.props.german,
-            wordtype: this.props.wordtype,
-            swedish: this.props.swedish,
+            ...this.props,
             ...state
         })
     }
@@ -29,7 +27,7 @@ export class IndexCardEdit extends React.Component {
             .replace(/^ett /, "")
 
         return getResult(identifyingWord, this.props.wordtype,
-            ([returnedWordType, data]) => this.setState({swedish: data}),
+            ([_, data]) => this.setState({swedish: data}),
             error => console.error("Could not autofill:", error)
         )
     }

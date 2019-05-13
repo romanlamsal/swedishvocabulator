@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import {WORDTYPES} from "../util/IndexCardUtil";
 
-const DEFAULT_INDEX_CARD = {german: "", wordtype: WORDTYPES.FREE_TEXT, swedish: {value: ""}}
+const DEFAULT_INDEX_CARD = {german: "", wordtype: WORDTYPES.FREE_TEXT, swedish: {value: ""}, id: ""}
 
 const defaultState = {
     indexCards: [DEFAULT_INDEX_CARD]
