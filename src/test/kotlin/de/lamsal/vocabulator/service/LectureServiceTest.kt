@@ -30,15 +30,6 @@ internal class LectureServiceTest {
 
     lateinit var lectureService: LectureService
 
-    @Test
-    fun foo() {
-        val digest = MessageDigest.getInstance("SHA-256")
-        val encodedhash = digest.digest(
-                "mundSchutz135".toByteArray(StandardCharsets.UTF_8))
-        println(String(encodedhash))
-        println(String(encodedhash, StandardCharsets.UTF_8))
-    }
-
     @BeforeEach
     fun setUp() {
         lectureService = LectureService(MockLectureRepository())
