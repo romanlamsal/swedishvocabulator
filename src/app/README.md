@@ -1,68 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Roman Lamsal's Swedish Vocabulator UI
+As this project is solely based on learning swedish, the model of the index cards
+used in the lectures and quiz(-zes) are specific for the swedish grammar.
 
-## Available Scripts
+## What's inside?
+WebUI which serves two purposes:
+* Creating and Editing Lectures
+* Taking quizzes based on a lecture (or a "Snack" - i.e. 20 random vocabs)
 
-In the project directory, you can run:
+## Creating and Editing Lectures
+The intention was to create a simple UI where you could create/edit index cards used for quizzing
+in a convenient way. It features highlighting based on the word's type (noun, verb, adjective, free text).
 
-### `npm start`
+By using a simple crawling mechanism, it's possible to have autocompletion based on the word type and the first entry of
+the word (see src/service/SvenskaSeService).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Keyboard shortcuts
+* ctrl+s: save currently edited card as is, and create a new, empty card
+* ctrl+enter: autocomplete card (won't work for free text cards)
+* alt+n: make current card a "noun" word type
+* alt+v: make current card a "verb" word type
+* alt+a: make current card a "adjective" word type
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Quiz
+As of now, only one type of quiz is implemented: A card is shown (german side first), after pressing enter/clicking/touching
+somewhere on the scree, the card's other side is shown (swedish). After that, it's up to the learner to decide whether or not
+s/he knew the right answer (no cheating!).
 
-### `npm test`
+It's primarily designed to be useable on a mobile device, thus the user can just touch to turn a card and then swipe right
+for "i knew it" or swipe left for "did not know it".
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Note: SvenskaSeService is just an idea!
+There has never been any written agreement from svenska.se to use their website like that. You have been warned, I am not
+to be held liable of any damage that is potentially done.
